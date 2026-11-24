@@ -1,0 +1,21 @@
+# MARKO — Render Blueprint (Free web service, Docker)
+# النشر: Render Dashboard → New → Blueprint → اختار الريبو ده، وهيقرأ الملف ده تلقائيًا.
+# ملحوظات الخطة المجانية: 512MB RAM وقرص مؤقت (Ephemeral) — الملفات عندنا مؤقتة أصلًا
+# وبتتمسح تلقائيًا، ومفيش أي حاجة محتاجة قرص دائم. وRender بيحقن PORT لوحده (متعيّنوش هنا).
+services:
+  - type: web
+    name: marko
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: MAX_FILE_SIZE_MB
+        value: "2048"
+      - key: MAX_CONCURRENT_DOWNLOADS
+        value: "2"
+      - key: FILE_RETENTION_MINUTES
+        value: "60"
+      - key: YTDLP_NO_CHECK_CERTIFICATE
+        value: "0"
